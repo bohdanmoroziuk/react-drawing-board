@@ -44,6 +44,14 @@ export const rootReducer = (state = initialState, action: Action): RootState => 
           state.currentStroke,
         ],
       };
+    case 'SET_STROKE_COLOR': 
+      return {
+        ...state,
+        currentStroke: {
+          ...state.currentStroke,
+          color: action.payload.color,
+        },
+      };
     default:
       return state;
   }

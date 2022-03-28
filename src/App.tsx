@@ -5,6 +5,8 @@ import { beginStroke, endStroke, updateStroke } from 'actions';
 import { currentStrokeSelector } from 'selectors';
 import { drawStroke } from 'utils/canvas';
 
+import ColorPanel from 'components/ColorPanel';
+
 const App: FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -47,12 +49,15 @@ const App: FC = () => {
 
   return (
     <div className="app">
+      <ColorPanel />
       <canvas
         onMouseDown={startDrawing}
         onMouseUp={endDrawing}
         onMouseOut={endDrawing}
         onMouseMove={draw}
         ref={canvasRef}
+        width="600"
+        height="400"
       />
     </div>
   );
