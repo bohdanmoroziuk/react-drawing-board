@@ -1,7 +1,12 @@
 import { FC, useRef } from 'react';
+import { useSelector } from 'react-redux';
+
+import { currentStrokeSelector } from 'selectors';
 
 const App: FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const currentStroke = useSelector(currentStrokeSelector);
 
   const startDrawing = () => {};
 
