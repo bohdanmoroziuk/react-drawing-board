@@ -1,11 +1,11 @@
-export type RootState = {};
+import { RootState } from 'types';
 
 export type Action = {
   type: string;
 };
 
 export const rootReducer = (
-  state: RootState = {},
+  state: RootState,
   action: Action,
 ): RootState => {
   return state;
