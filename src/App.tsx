@@ -1,6 +1,7 @@
-import { FC, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { FC, useRef, useMemo, MouseEvent } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { beginStroke, endStroke, updateStroke } from 'actions';
 import { currentStrokeSelector } from 'selectors';
 
 const App: FC = () => {
@@ -8,11 +9,26 @@ const App: FC = () => {
 
   const currentStroke = useSelector(currentStrokeSelector);
 
-  const startDrawing = () => {};
+  const isDrawing = useMemo(() => !!currentStroke.points.length, [currentStroke]);
 
-  const endDrawing = () => {};
+  const dispatch = useDispatch();
 
-  const draw = () => {};
+  const startDrawing = ({ nativeEvent }: MouseEvent<HTMLCanvasElement>) => {
+    dispatch(beginStroke(nativeEvent.offsetX, nativeEvent.offsetY));
+  };
+
+  const endDrawing = () => {
+    if (isDrawing) {
+      dispatch(endStroke());
+    }
+  };
+
+  const draw = ({ nativeEvent }: MouseEvent<HTMLCanvasElement>) => {
+    if (isDrawing) {
+      dispatch(updateStroke(nativeEvent.offsetX, nativeEvent.offsetY));
+    }
+
+  };
 
   return (
     <div className="app">
