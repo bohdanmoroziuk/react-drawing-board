@@ -1,11 +1,10 @@
 import { FC, useMemo, useEffect, MouseEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { beginStroke, updateStroke, endStroke } from 'modules/currentStroke/actions';
+import { endStroke } from 'modules/sharedActions';
+import { beginStroke, updateStroke } from 'modules/currentStroke/slice';
 import { currentStrokeSelector } from 'modules/currentStroke/selectors'
-
 import { historyIndexSelector } from 'modules/historyIndex/selectors';
-
 import { strokesSelector } from 'modules/strokes/selectors';
 
 import { drawStroke, clearCanvas, setCanvasSize } from 'utils/canvas';
@@ -41,18 +40,31 @@ const App: FC = () => {
   const dispatch = useDispatch();
 
   const startDrawing = ({ nativeEvent }: MouseEvent<HTMLCanvasElement>) => {
-    dispatch(beginStroke(nativeEvent.offsetX, nativeEvent.offsetY));
+    dispatch(beginStroke({
+      point: {
+        x: nativeEvent.offsetX,
+        y: nativeEvent.offsetY,
+      },
+    }));
   };
 
   const endDrawing = () => {
     if (isDrawing) {
-      dispatch(endStroke(currentStroke, historyIndex));
+      dispatch(endStroke({
+        stroke: currentStroke,
+        historyLimit: historyIndex,
+      }));
     }
   };
 
   const draw = ({ nativeEvent }: MouseEvent<HTMLCanvasElement>) => {
     if (isDrawing) {
-      dispatch(updateStroke(nativeEvent.offsetX, nativeEvent.offsetY));
+      dispatch(updateStroke({
+        point: {
+          x: nativeEvent.offsetX,
+          y: nativeEvent.offsetY
+        }
+      }));
     }
   };
 

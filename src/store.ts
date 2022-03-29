@@ -1,7 +1,7 @@
 import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 
-import { reducer as currentStroke } from 'modules/currentStroke/reducer';
+import currentStroke from 'modules/currentStroke/slice';
 import historyIndex from 'modules/historyIndex/slice';
 import strokes from 'modules/strokes/slice';
 
