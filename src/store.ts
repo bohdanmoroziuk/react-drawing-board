@@ -3,7 +3,7 @@ import logger from 'redux-logger';
 
 import { reducer as currentStroke } from 'modules/currentStroke/reducer';
 import historyIndex from 'modules/historyIndex/slice';
-import { reducer as strokes } from 'modules/strokes/reducer';
+import strokes from 'modules/strokes/slice';
 
 const middleware = [...getDefaultMiddleware(), logger]
 
