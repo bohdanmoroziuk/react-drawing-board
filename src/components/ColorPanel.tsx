@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { setStrokeColor } from 'actions';
+import { setStrokeColor } from 'modules/currentStroke/actions';
 
 const COLORS = [
   "#000000",

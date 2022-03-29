@@ -1,16 +1,26 @@
 import { FC, useRef, useMemo, useEffect, MouseEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { beginStroke, endStroke, updateStroke } from 'actions';
-import { currentStrokeSelector } from 'selectors';
-import { drawStroke } from 'utils/canvas';
+import { beginStroke, updateStroke, endStroke } from 'modules/currentStroke/actions';
+import { currentStrokeSelector } from 'modules/currentStroke/selectors'
 
+import { historyIndexSelector } from 'modules/historyIndex/selectors';
+
+import { strokesSelector } from 'modules/strokes/selectors';
+
+import { drawStroke, clearCanvas } from 'utils/canvas';
+
+import EditPanel from 'components/EditPanel';
 import ColorPanel from 'components/ColorPanel';
 
 const App: FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const currentStroke = useSelector(currentStrokeSelector);
+  
+  const historyIndex = useSelector(historyIndexSelector);
+
+  const strokes = useSelector(strokesSelector);
 
   const isDrawing = useMemo(() => !!currentStroke.points.length, [currentStroke]);
 
@@ -27,7 +37,7 @@ const App: FC = () => {
 
   const endDrawing = () => {
     if (isDrawing) {
-      dispatch(endStroke());
+      dispatch(endStroke(currentStroke, historyIndex));
     }
   };
 
@@ -40,15 +50,32 @@ const App: FC = () => {
   useEffect(() => {
     const { context } = getCanvasAndContext();
 
-    if (!context) return;
+    if (!context)  return;
 
     requestAnimationFrame(() => {
       drawStroke(context, currentStroke.points, currentStroke.color);
     });
   }, [currentStroke]);
 
+  useEffect(() => {
+    const { canvas, context } = getCanvasAndContext();
+    
+    if (!context || !canvas) return;
+
+    requestAnimationFrame(() => {
+      clearCanvas(canvas);
+
+      strokes
+        .slice(0, strokes.length - historyIndex)
+        .forEach((stroke) => {
+          drawStroke(context, stroke.points, stroke.color)
+        });
+    });
+  }, [historyIndex, strokes]);
+
   return (
     <div className="app">
+      <EditPanel />
       <ColorPanel />
       <canvas
         onMouseDown={startDrawing}

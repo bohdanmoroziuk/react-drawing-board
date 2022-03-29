@@ -1,4 +1,4 @@
-import { Point, Stroke } from 'types';
+import { Point, Stroke, Color, HistoryLimit } from 'types';
 
 export const BEGIN_STROKE = 'BEGIN_STROKE';
 export const UPDATE_STROKE = 'UPDATE_STROKE';
@@ -21,16 +21,20 @@ export type UpdateStrokeAction = {
 
 export type EndStrokeAction = {
   type: typeof END_STROKE;
+  payload: {
+    stroke: Stroke;
+    historyLimit: HistoryLimit;
+  };
 };
 
 export type SetStrokeColorAction = {
   type: typeof SET_STROKE_COLOR;
   payload: {
-    color: Stroke['color'],
-  },
+    color: Color;
+  };
 };
 
-export type Action = 
+export type CurrentStrokeAction = 
   | BeginStrokeAction
   | UpdateStrokeAction
   | EndStrokeAction
@@ -56,11 +60,15 @@ export const updateStroke = (x: Point['x'], y: Point['y']): UpdateStrokeAction =
   },
 });
 
-export const endStroke = (): EndStrokeAction => ({
+export const endStroke = (stroke: Stroke, historyLimit: HistoryLimit): EndStrokeAction => ({
   type: 'END_STROKE',
+  payload: {
+    stroke,
+    historyLimit,
+  },
 });
 
-export const setStrokeColor = (color: Stroke['color']): SetStrokeColorAction => ({
+export const setStrokeColor = (color: Color): SetStrokeColorAction => ({
   type: 'SET_STROKE_COLOR',
   payload: {
     color,
