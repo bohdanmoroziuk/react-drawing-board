@@ -1,4 +1,4 @@
-import { FC, useRef, useMemo, useEffect, MouseEvent } from 'react';
+import { FC, useMemo, useEffect, MouseEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { beginStroke, updateStroke, endStroke } from 'modules/currentStroke/actions';
@@ -12,6 +12,9 @@ import { drawStroke, clearCanvas, setCanvasSize } from 'utils/canvas';
 
 import useOnMount from 'hooks/useOnMount';
 
+import { useCanvas } from 'contexts/canvas';
+
+import FilePanel from 'components/FilePanel';
 import EditPanel from 'components/EditPanel';
 import ColorPanel from 'components/ColorPanel';
 
@@ -20,7 +23,7 @@ const WIDTH = 800;
 const HEIGHT = 500;
 
 const App: FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useCanvas();
 
   const currentStroke = useSelector(currentStrokeSelector);
   
@@ -96,6 +99,7 @@ const App: FC = () => {
 
   return (
     <div className="app">
+      <FilePanel />
       <EditPanel />
       <ColorPanel />
       <canvas
