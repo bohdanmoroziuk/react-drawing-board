@@ -2,7 +2,7 @@ import { configureStore, getDefaultMiddleware, combineReducers } from '@reduxjs/
 import logger from 'redux-logger';
 
 import { reducer as currentStroke } from 'modules/currentStroke/reducer';
-import { reducer as historyIndex } from 'modules/historyIndex/reducer';
+import historyIndex from 'modules/historyIndex/slice';
 import { reducer as strokes } from 'modules/strokes/reducer';
 
 const middleware = [...getDefaultMiddleware(), logger]

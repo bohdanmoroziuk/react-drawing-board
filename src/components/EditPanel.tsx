@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { undo, redo } from 'modules/historyIndex/actions';
+import { undo, redo } from 'modules/historyIndex/slice';
 import { strokesLengthSelector } from 'modules/strokes/selectors';
 
 const EditPanel: FC = () => {
