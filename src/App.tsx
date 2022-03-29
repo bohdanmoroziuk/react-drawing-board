@@ -8,10 +8,16 @@ import { historyIndexSelector } from 'modules/historyIndex/selectors';
 
 import { strokesSelector } from 'modules/strokes/selectors';
 
-import { drawStroke, clearCanvas } from 'utils/canvas';
+import { drawStroke, clearCanvas, setCanvasSize } from 'utils/canvas';
+
+import useOnMount from 'hooks/useOnMount';
 
 import EditPanel from 'components/EditPanel';
 import ColorPanel from 'components/ColorPanel';
+
+const WIDTH = 800;
+
+const HEIGHT = 500;
 
 const App: FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -72,6 +78,21 @@ const App: FC = () => {
         });
     });
   }, [historyIndex, strokes]);
+
+  useOnMount(() => {
+    const { canvas, context } = getCanvasAndContext();
+
+    if (!canvas || !context) return;
+
+    setCanvasSize(canvas, WIDTH, HEIGHT);
+
+    context.lineJoin = "round";
+    context.lineCap = "round";
+    context.lineWidth = 5;
+    context.strokeStyle = "black";
+
+    clearCanvas(canvas);
+  });
 
   return (
     <div className="app">
