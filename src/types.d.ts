@@ -22,4 +22,8 @@ export type RootState = {
   currentStroke: Stroke;
   strokes: Stroke[];
   historyIndex: HistoryIndex;
+  modalVisible: {
+    isShown: boolean;
+    modalName: Nullable<string>;
+  };
 };

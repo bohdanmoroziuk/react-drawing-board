@@ -46,3 +46,11 @@ canvas {
   flex-wrap: wrap;
   width: 336px;
 }
+
+.modal-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  z-index: 10;
+}

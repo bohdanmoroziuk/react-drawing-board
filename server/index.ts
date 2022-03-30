@@ -7,6 +7,16 @@ import { nanoid } from 'nanoid';
 
 const db = lowdb(new FileSync<{ projects: Project[] }>('db.json'));
 
+db.defaults({
+  projects: [
+    {
+      id: nanoid(),
+      name: "Test Project",
+      image: "http://placekitten.com/100/100"
+    },
+  ],
+}).write();
+
 interface Project {
   id: string
   name: string
@@ -42,12 +52,21 @@ app.get('/projects', (req, res) => {
   return res.json(projects);
 })
 
-app.post('/projects/new', (req, res) => {
-  db.get('projects')
-    .push({ ...req.body, id: nanoid() })
-    .write();
+app.post('/projects/new', async (req, res) => {
+  console.log('request body', req.body);
 
-  res.json({ success: true });
+  try {
+    await db
+      .get('projects')
+      .push({ ...req.body, id: nanoid() })
+      .write();
+
+    res.json({ success: true });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ success: false, reason: (error as Error).message });
+  }
 });
 
 app.get('/projects/:projectId', (req, res) => {
@@ -60,11 +79,12 @@ app.get('/projects/:projectId', (req, res) => {
       success: true,
       project,
     });
-  } else {
-    return res.json({
-      success: false,
-    });
   }
+  
+  return res.json({
+    success: false,
+    reason: 'Project not found'
+  });
 });
 
 app.listen(port, () => {

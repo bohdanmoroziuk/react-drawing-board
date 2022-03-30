@@ -31,6 +31,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:server": "ts-node -O '{\"module\": \"commonjs\"}' ./server/index.ts",
+    "dev": "concurrently --kill-others \"npm run start:server\" \"npm run start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
