@@ -15,15 +15,22 @@ body,
 
 .app {
   background-color: #dfdfdf;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
+  display: flex;
+  padding: 0.5rem;
 }
 
 canvas {
   cursor: url('./assets/icons/pencil.png') 0 34, auto;
   background-color: #fff;
+}
+
+.tools {
+  padding-left: 0.5rem;
+}
+
+.tools > * + * {
+  margin-top: 1rem;
 }
 
 .colors-panel {

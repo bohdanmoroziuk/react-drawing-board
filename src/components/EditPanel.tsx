@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { undo, redo } from 'modules/historyIndex/slice';
 import { strokesLengthSelector } from 'modules/strokes/selectors';
+import Panel from 'components/Panel';
 
 const EditPanel: FC = () => {
   const dispatch = useDispatch();
@@ -18,27 +19,22 @@ const EditPanel: FC = () => {
   };
 
   return (
-    <div className="window edit-panel">
-      <div className="title-bar">
-        <div className="title-bar-text">Edit</div>
+    <Panel title="Edit">
+      <div className="field-row">
+        <button
+          className="button undo"
+          onClick={handleUndo}
+        >
+          Undo
+        </button>
+        <button
+          className="button redo"
+          onClick={handleRedo}
+        >
+          Redo
+        </button>
       </div>
-      <div className="window-body">
-        <div className="field-row">
-          <button
-            className="button undo"
-            onClick={handleUndo}
-          >
-            Undo
-          </button>
-          <button
-            className="button redo"
-            onClick={handleRedo}
-          >
-            Redo
-          </button>
-        </div>
-      </div>
-    </div>
+    </Panel>
   );
 };
 

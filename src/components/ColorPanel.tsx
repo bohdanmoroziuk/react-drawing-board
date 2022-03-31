@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { setStrokeColor } from 'modules/currentStroke/slice';
+import Panel from 'components/Panel';
 
 const COLORS = [
   "#000000",
@@ -42,11 +43,8 @@ const ColorPanel: FC = () => {
   };
 
   return (
-    <div className="window colors-panel">
-      <div className="title-bar">
-        <div className="title-bar-text">Colors</div>
-      </div>
-      <div className="window-body colors">
+    <Panel title="Colors">
+      <div className="colors">
         {COLORS.map((color) => (
           <div
             className="color"
@@ -56,7 +54,7 @@ const ColorPanel: FC = () => {
           />
         ))}
       </div>
-    </div>
+    </Panel>
   );
 };
 

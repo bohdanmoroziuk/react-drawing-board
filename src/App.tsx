@@ -112,19 +112,21 @@ const App: FC = () => {
 
   return (
     <div className="app">
-      <FilePanel />
-      <EditPanel />
-      <ColorPanel />
+      <div className="board">
+        <canvas
+          onMouseDown={startDrawing}
+          onMouseUp={endDrawing}
+          onMouseOut={endDrawing}
+          onMouseMove={draw}
+          ref={canvasRef}
+        />
+      </div>
+      <div className="tools">
+        <FilePanel />
+        <EditPanel />
+        <ColorPanel />
+      </div>
       <ModalLayer />
-      <canvas
-        onMouseDown={startDrawing}
-        onMouseUp={endDrawing}
-        onMouseOut={endDrawing}
-        onMouseMove={draw}
-        ref={canvasRef}
-        width="600"
-        height="400"
-      />
     </div>
   );
 };
