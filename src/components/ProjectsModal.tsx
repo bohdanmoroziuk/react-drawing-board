@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { hide } from 'modules/modals/slice';
 import { loadProject } from 'modules/strokes/loadProject';
 import { loadProjectsList } from 'modules/projectsList/loadProjectsList';
-import { projectsListSelector } from 'modules/projectsList/selectors';
+import { projectsSelector } from 'modules/projectsList/selectors';
 import useOnMount from 'hooks/useOnMount';
+
+import ProjectCard from 'components/ProjectCard';
 
 const ProjectsModal: FC = () => {
   const dispatch = useDispatch();
 
-  const projectsList = useSelector(projectsListSelector);
+  const projects = useSelector(projectsSelector);
 
   const hideModal = () => {
     dispatch(hide());
@@ -35,15 +37,12 @@ const ProjectsModal: FC = () => {
       </div>
       <div className="window-body">
         <div className="projects-container">
-          {projectsList.projects.map((project) => (
-            <div
-              className="project-card"
+          {projects.map((project) => (
+            <ProjectCard
               key={project.id}
+              project={project}
               onClick={handleProjectLoad(project.id)}
-            >
-              <img src={project.image} alt="thumbnail" />
-              <div>{project.name}</div>
-            </div>
+            />
           ))}
         </div>
       </div>
