@@ -42,10 +42,8 @@ const App: FC = () => {
 
   const startDrawing = ({ nativeEvent }: MouseEvent<HTMLCanvasElement>) => {
     dispatch(beginStroke({
-      point: {
-        x: nativeEvent.offsetX,
-        y: nativeEvent.offsetY,
-      },
+      x: nativeEvent.offsetX,
+      y: nativeEvent.offsetY,
     }));
   };
 
@@ -61,10 +59,8 @@ const App: FC = () => {
   const draw = ({ nativeEvent }: MouseEvent<HTMLCanvasElement>) => {
     if (isDrawing) {
       dispatch(updateStroke({
-        point: {
-          x: nativeEvent.offsetX,
-          y: nativeEvent.offsetY
-        }
+        x: nativeEvent.offsetX,
+        y: nativeEvent.offsetY
       }));
     }
   };

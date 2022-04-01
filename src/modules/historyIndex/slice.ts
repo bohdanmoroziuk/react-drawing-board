@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { UndoLimit } from 'types';
+import { UndoLimit, HistoryIndexState } from 'types';
 import { endStroke } from 'modules/sharedActions';
+
+export const initialState = 0 as HistoryIndexState;
 
 export type UndoActionPayload = UndoLimit;
 
 export const historyIndex = createSlice({
   name: 'historyIndex',
-  initialState: 0,
+  initialState,
   reducers: {
     undo: (state, action: PayloadAction<UndoActionPayload>) => {
       return Math.min(state + 1, action.payload);

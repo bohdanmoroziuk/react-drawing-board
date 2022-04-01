@@ -24,17 +24,27 @@ export type Project = {
   id: string
 }
 
+export type CurrentStrokeState = Stroke;
+
+export type StrokesState = Stroke[];
+
+export type HistoryIndexState = HistoryIndex;
+
+export type ModalVisibleState = {
+  isShown: boolean;
+  modalName: Nullable<string>;
+};
+
+export type ProjectsListState = {
+  error: Nullable<string>;
+  pending: boolean;
+  projects: Project[];
+};
+
 export type RootState = {
-  currentStroke: Stroke;
-  strokes: Stroke[];
-  historyIndex: HistoryIndex;
-  modalVisible: {
-    isShown: boolean;
-    modalName: Nullable<string>;
-  };
-  projectsList: {
-    error: Nullable<string>;
-    pending: boolean;
-    projects: Project[];
-  };
+  currentStroke: CurrentStrokeState;
+  strokes: StrokesState;
+  historyIndex: HistoryIndexState;
+  modalVisible: ModalVisibleState;
+  projectsList: ProjectsListState;
 };

@@ -1,15 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { RootState, Stroke } from 'types';
+import { StrokesState, Stroke } from 'types';
 import { endStroke } from 'modules/sharedActions';
 
-export const initialState: RootState['strokes'] = [];
+export const initialState = [] as StrokesState;
+
+export type SetStrokesActionPayload = Stroke[];
 
 export const strokesSlice = createSlice({
   name: 'strokes',
   initialState,
   reducers: {
-    setStrokes: (state, action: PayloadAction<Stroke[]>) => {
+    setStrokes: (state, action: PayloadAction<SetStrokesActionPayload>) => {
       return action.payload;
     },
   },

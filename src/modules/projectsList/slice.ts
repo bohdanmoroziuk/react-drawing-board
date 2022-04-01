@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Project, Nullable } from 'types';
-
-export type ProjectsListState = {
-  error: Nullable<string>;
-  pending: boolean;
-  projects: Project[];
-};
+import { Project, ProjectsListState } from 'types';
 
 export const initialState = {
   error: null,
@@ -14,16 +8,20 @@ export const initialState = {
   projects: [],
 } as ProjectsListState;
 
+export type GetProjectsListSuccessActionPayload = Project[];
+
+export type GetProjectsListFailureActionPayload = string;
+
 export const projectsListSlice = createSlice({
   name: 'projectsList',
   initialState,
   reducers: {
-    getProjectsListSuccess: (state, action: PayloadAction<Project[]>) => {
+    getProjectsListSuccess: (state, action: PayloadAction<GetProjectsListSuccessActionPayload>) => {
       state.error = null;
       state.pending = false;
       state.projects = action.payload;
     },
-    getProjectsListFailure: (state, action: PayloadAction<string>) => {
+    getProjectsListFailure: (state, action: PayloadAction<GetProjectsListFailureActionPayload>) => {
       state.error = action.payload;
       state.pending = false;
       state.projects = [];

@@ -4,7 +4,7 @@ import { newProject } from 'modules/strokes/api';
 export const saveProject = (
   projectName: string,
   thumbnail: string,
-): AppThunk => async (dispatch, getState) => {
+): AppThunk => async (_dispatch, getState) => {
   try {
     const response = await newProject(
       projectName,

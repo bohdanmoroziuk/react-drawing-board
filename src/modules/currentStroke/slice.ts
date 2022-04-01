@@ -1,34 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { RootState, Point, Color } from 'types';
+import { CurrentStrokeState, Point, Color } from 'types';
 import { endStroke } from 'modules/sharedActions';
 
-export type CurrentStrokeState = RootState['currentStroke'];
-
-export const initialState: CurrentStrokeState = {
+export const initialState = {
   points: [],
   color: '#000',
-};
+} as CurrentStrokeState;
 
-export type BeginStrokeActionPayload = {
-  point: Point;
-};
+export type BeginStrokeActionPayload = Point;
 
-export type UpdateStrokeActionPayload = {
-  point: Point;
-};
+export type UpdateStrokeActionPayload = Point;
 
-export type SetStrokeColorActionPayload = Color
+export type SetStrokeColorActionPayload = Color;
 
 export const currentStrokeSlice = createSlice({
   name: 'currentStroke',
   initialState,
   reducers: {
     beginStroke: (state, action: PayloadAction<BeginStrokeActionPayload>) => {
-      state.points = [action.payload.point];
+      state.points = [action.payload];
     },
     updateStroke: (state, action: PayloadAction<UpdateStrokeActionPayload>) => {
-      state.points.push(action.payload.point);
+      state.points.push(action.payload);
     },
     setStrokeColor: (state, action: PayloadAction<SetStrokeColorActionPayload>) => {
       state.color = action.payload;

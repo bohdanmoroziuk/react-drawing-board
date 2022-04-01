@@ -1,22 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Nullable } from 'types';
-
-export type ModalState = {
-  isShown: boolean;
-  modalName: Nullable<string>;
-};
+import { ModalVisibleState } from 'types';
 
 export const initialState = {
   isShown: false,
   modalName: null,
-} as ModalState;
+} as ModalVisibleState;
+
+export type ShowActionPayload = ModalVisibleState['modalName'];
 
 const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    show: (state, action: PayloadAction<string>) => {
+    show: (state, action: PayloadAction<ShowActionPayload>) => {
       state.isShown = true;
       state.modalName = action.payload;
     },
