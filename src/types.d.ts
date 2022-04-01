@@ -18,6 +18,12 @@ export type Stroke = {
   color: Color;
 }
 
+export type Project = {
+  image: string;
+  name: string;
+  id: string
+}
+
 export type RootState = {
   currentStroke: Stroke;
   strokes: Stroke[];
@@ -25,5 +31,10 @@ export type RootState = {
   modalVisible: {
     isShown: boolean;
     modalName: Nullable<string>;
+  };
+  projectsList: {
+    error: Nullable<string>;
+    pending: boolean;
+    projects: Project[];
   };
 };

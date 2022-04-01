@@ -8,6 +8,7 @@ import {
 import logger from 'redux-logger';
 
 import { modalVisible } from 'modules/modals/slice';
+import { projectsList } from 'modules/projectsList/slice';
 import currentStroke from 'modules/currentStroke/slice';
 import historyIndex from 'modules/historyIndex/slice';
 import strokes from 'modules/strokes/slice';
@@ -21,6 +22,7 @@ export const store = configureStore({
     currentStroke,
     strokes,
     modalVisible,
+    projectsList,
   }),
   middleware,
 });

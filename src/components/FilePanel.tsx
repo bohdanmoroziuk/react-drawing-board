@@ -24,6 +24,10 @@ const FilePanel: FC = () => {
     dispatch(show('PROJECT_SAVE_MODAL'));
   };
 
+  const openProjectsModal = () => {
+    dispatch(show('PROJECTS_MODAL'));
+  };
+
   return (
     <Panel title="File">
       <div className="field-row">
@@ -35,6 +39,12 @@ const FilePanel: FC = () => {
           onClick={openProjectSaveModal}
         >
           Save
+        </button>
+        <button
+          className="save-button"
+          onClick={openProjectsModal}
+        >
+          Open
         </button>
       </div>
     </Panel>

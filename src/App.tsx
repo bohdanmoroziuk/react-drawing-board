@@ -1,4 +1,4 @@
-import { FC, useMemo, useEffect, MouseEvent } from 'react';
+import { FC, useMemo, useEffect, MouseEvent, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { endStroke } from 'modules/sharedActions';
@@ -33,10 +33,10 @@ const App: FC = () => {
 
   const isDrawing = useMemo(() => !!currentStroke.points.length, [currentStroke]);
 
-  const getCanvasAndContext = (canvas = canvasRef.current) => ({
-    canvas,
-    context: canvas?.getContext('2d'),
-  });
+  const getCanvasAndContext = useCallback(() => ({
+    canvas: canvasRef.current,
+    context: canvasRef.current?.getContext('2d'),
+  }), [canvasRef]);
 
   const dispatch = useDispatch();
 
@@ -77,7 +77,7 @@ const App: FC = () => {
     requestAnimationFrame(() => {
       drawStroke(context, currentStroke.points, currentStroke.color);
     });
-  }, [currentStroke]);
+  }, [currentStroke, getCanvasAndContext]);
 
   useEffect(() => {
     const { canvas, context } = getCanvasAndContext();
@@ -93,7 +93,7 @@ const App: FC = () => {
           drawStroke(context, stroke.points, stroke.color)
         });
     });
-  }, [historyIndex, strokes]);
+  }, [historyIndex, strokes, getCanvasAndContext]);
 
   useOnMount(() => {
     const { canvas, context } = getCanvasAndContext();
@@ -119,6 +119,8 @@ const App: FC = () => {
           onMouseOut={endDrawing}
           onMouseMove={draw}
           ref={canvasRef}
+          width={WIDTH}
+          height={HEIGHT}
         />
       </div>
       <div className="tools">
