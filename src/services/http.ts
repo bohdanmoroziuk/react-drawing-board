@@ -10,7 +10,7 @@ class FetchError extends Error {
   constructor(meta: Meta = {}) {
     super(meta.client ? meta.cause : `Server error ${meta.status}`);
     Object.assign(this, meta);
-    this.name = "FetchError";
+    this.name = 'FetchError';
   }
 }
 
@@ -27,6 +27,8 @@ const makeRequest = (method: Method) => (url: Url, options: Options = undefined)
     });
 };
 
-export const httpGet = makeRequest("GET");
+export const httpGet = makeRequest('GET');
 
-export const httpPost = makeRequest("POST");
+export const httpPost = makeRequest('POST');
+
+export const httpDelete = makeRequest('DELETE');

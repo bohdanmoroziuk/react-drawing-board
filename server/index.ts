@@ -1,9 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import lowdb from 'lowdb';
+import lowdb, { LowdbSync } from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
 import { nanoid } from 'nanoid';
+
+type Database = LowdbSync<{ projects: Project[] }>;
 
 const db = lowdb(new FileSync<{ projects: Project[] }>('db.json'));
 
@@ -16,6 +18,22 @@ db.defaults({
     },
   ],
 }).write();
+
+const getProjects = (db: Database) => {
+  return db.get('projects').value();
+};
+
+const addProject = (db: Database, project: Project) => {
+  return db.get('projects').push(project).write();
+};
+
+const getProject = (db: Database, id: string) => {
+  return db.get('projects').find({ id }).value();
+};
+
+const deleteProject = (db: Database, id: string) => {
+  return db.get('projects').remove({ id }).write();
+};
 
 interface Project {
   id: string
@@ -41,7 +59,7 @@ app.use(bodyParser.json());
 const port = 4000;
 
 app.get('/projects', (req, res) => {
-  const data = db.get('projects').value();
+  const data = getProjects(db);
 
   const projects = data.map((project) => ({
     name: project.name,
@@ -53,15 +71,12 @@ app.get('/projects', (req, res) => {
 })
 
 app.post('/projects/new', async (req, res) => {
-  console.log('request body', req.body);
-
   try {
-    await db
-      .get('projects')
-      .push({ ...req.body, id: nanoid() })
-      .write();
+    addProject(db, { ...req.body, id: nanoid() });
 
-    res.json({ success: true });
+    res
+      .status(201)
+      .json({ success: true });
   } catch (error) {
     res
       .status(500)
@@ -72,7 +87,7 @@ app.post('/projects/new', async (req, res) => {
 app.get('/projects/:projectId', (req, res) => {
   const { projectId } = req.params;
 
-  const project = db.get('projects').find({ id: projectId }).value();
+  const project = getProject(db, projectId);
 
   if (project) {
     return res.json({
@@ -81,10 +96,40 @@ app.get('/projects/:projectId', (req, res) => {
     });
   }
   
-  return res.json({
-    success: false,
-    reason: 'Project not found'
-  });
+  return res
+    .status(404)
+    .json({
+      success: false,
+      reason: 'Project not found',
+    });
+});
+
+app.delete('/projects/:projectId', async (req, res) => {
+  try {
+    const { projectId } = req.params;
+
+    const project = getProject(db, projectId);
+
+    if (!project) {
+      return res
+        .status(404)
+        .json({
+          success: false,
+          reason: 'Project not found',
+        });
+    }
+
+    deleteProject(db, projectId);
+    
+    return res.json({ success: true });
+  } catch (error) {  
+    return res
+      .status(500)
+      .json({
+        success: false,
+        reason: (error as Error).message,
+      });
+  }
 });
 
 app.listen(port, () => {

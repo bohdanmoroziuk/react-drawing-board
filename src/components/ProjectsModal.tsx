@@ -1,9 +1,10 @@
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { hide } from 'modules/modals/slice';
 import { loadProject } from 'modules/strokes/loadProject';
 import { loadProjectsList } from 'modules/projectsList/loadProjectsList';
+import { deleteProject } from 'modules/projectsList/deleteProject';
 import { projectsSelector } from 'modules/projectsList/selectors';
 import useOnMount from 'hooks/useOnMount';
 
@@ -24,6 +25,12 @@ const ProjectsModal: FC = () => {
     hideModal();
   };
 
+  const handleProjectDelete = (id: string) => (event: MouseEvent<HTMLButtonElement>) =>  {
+    event.stopPropagation();
+
+    dispatch(deleteProject(id));
+  };
+
   useOnMount(() => {
     dispatch(loadProjectsList());
   });
@@ -36,6 +43,7 @@ const ProjectsModal: FC = () => {
             key={project.id}
             project={project}
             onClick={handleProjectLoad(project.id)}
+            onDelete={handleProjectDelete(project.id)}
           />
         ))}
       </div>

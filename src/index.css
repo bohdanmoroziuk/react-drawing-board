@@ -86,8 +86,12 @@ canvas {
   text-align: center;
 }
 
-.project-card img {
+.project-card-thumbnail {
   width: 100px;
   height: 100px;
+  margin-bottom: 6px;
+}
+
+.project-card-name {
   margin-bottom: 10px;
 }

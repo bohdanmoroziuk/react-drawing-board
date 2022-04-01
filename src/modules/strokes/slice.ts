@@ -11,7 +11,7 @@ export const strokesSlice = createSlice({
   name: 'strokes',
   initialState,
   reducers: {
-    setStrokes: (state, action: PayloadAction<SetStrokesActionPayload>) => {
+    setStrokes: (_state, action: PayloadAction<SetStrokesActionPayload>) => {
       return action.payload;
     },
   },

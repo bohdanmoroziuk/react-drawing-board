@@ -12,6 +12,8 @@ export type GetProjectsListSuccessActionPayload = Project[];
 
 export type GetProjectsListFailureActionPayload = string;
 
+export type DeleteProjectSuccessActionPayload = string;
+
 export const projectsListSlice = createSlice({
   name: 'projectsList',
   initialState,
@@ -26,9 +28,12 @@ export const projectsListSlice = createSlice({
       state.pending = false;
       state.projects = [];
     },
+    deleteProjectSuccess: (state, action: PayloadAction<DeleteProjectSuccessActionPayload>) => {
+      state.projects = state.projects.filter((project) => project.id !== action.payload);
+    },
   },
 });
 
 export const projectsList = projectsListSlice.reducer;
 
-export const { getProjectsListSuccess, getProjectsListFailure } = projectsListSlice.actions;
+export const { getProjectsListSuccess, getProjectsListFailure, deleteProjectSuccess } = projectsListSlice.actions;
