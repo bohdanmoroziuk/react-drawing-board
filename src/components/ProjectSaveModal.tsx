@@ -26,6 +26,8 @@ const ProjectSaveModal: FC = () => {
   };
 
   const handleProjectSave = async () => {
+    if (projectName.trim() === '') return;
+
     const file = await getCanvasImage(canvasRef.current);
 
     if (!file) return;
