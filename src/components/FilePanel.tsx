@@ -31,17 +31,17 @@ const FilePanel: FC = () => {
   return (
     <Panel title="File">
       <div className="field-row">
-        <button className="save-button" onClick={exportToFile}>
+        <button className="button" onClick={exportToFile}>
           Export
         </button>
         <button
-          className="save-button"
+          className="button"
           onClick={openProjectSaveModal}
         >
           Save
         </button>
         <button
-          className="save-button"
+          className="button"
           onClick={openProjectsModal}
         >
           Open
