@@ -7,6 +7,7 @@ import { loadProjectsList } from 'modules/projectsList/loadProjectsList';
 import { projectsSelector } from 'modules/projectsList/selectors';
 import useOnMount from 'hooks/useOnMount';
 
+import ModalPanel from 'components/ModalPanel';
 import ProjectCard from 'components/ProjectCard';
 
 const ProjectsModal: FC = () => {
@@ -28,25 +29,17 @@ const ProjectsModal: FC = () => {
   });
 
   return (
-    <div className="window modal-panel">
-      <div className="title-bar">
-        <div className="title-bar-text">Counter</div>
-        <div className="title-bar-controls">
-          <button aria-label="Close" onClick={hideModal} />
-        </div>
+    <ModalPanel title="Counter" onHide={hideModal}>
+      <div className="projects-container">
+        {projects.map((project) => (
+          <ProjectCard
+            key={project.id}
+            project={project}
+            onClick={handleProjectLoad(project.id)}
+          />
+        ))}
       </div>
-      <div className="window-body">
-        <div className="projects-container">
-          {projects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onClick={handleProjectLoad(project.id)}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+    </ModalPanel>
   );
 };
 

@@ -7,6 +7,8 @@ import { useCanvas } from 'contexts/canvas';
 import { getCanvasImage } from 'utils/canvas';
 import { getBase64Thumbnail } from 'utils/scaler';
 
+import ModalPanel from 'components/ModalPanel';
+
 const ProjectSaveModal: FC = () => {
   const dispatch = useDispatch();
 
@@ -18,6 +20,11 @@ const ProjectSaveModal: FC = () => {
     setProjectName(event.target.value);
   };
 
+  const hideModal = () => {
+    setProjectName('');
+    dispatch(hide());
+  };
+
   const handleProjectSave = async () => {
     const file = await getCanvasImage(canvasRef.current);
 
@@ -26,21 +33,12 @@ const ProjectSaveModal: FC = () => {
     const thumbnail = await getBase64Thumbnail({ file, scale: 0.1 });
 
     dispatch(saveProject(projectName, thumbnail));
-    setProjectName('');
-    dispatch(hide());
-  };
-
-  const handleCancel = () => {
-    setProjectName('');
-    dispatch(hide());
+    hideModal();
   };
 
   return (
-    <div className="window modal-panel">
-      <div className="title-bar">
-        <div className="title-bar-text">Save</div>
-      </div>
-      <div className="window-body">
+    <ModalPanel title="Save" onHide={hideModal}>
+      <>
         <div className="field-row-stacked">
           <label htmlFor="projectName">Project Name</label>
           <input
@@ -52,10 +50,10 @@ const ProjectSaveModal: FC = () => {
         </div>
         <div className="field-row">
           <button onClick={handleProjectSave}>Save</button>
-          <button onClick={handleCancel}>Cancel</button>
+          <button onClick={hideModal}>Cancel</button>
         </div>
-      </div>
-    </div>
+      </>
+    </ModalPanel>
   );
 };
 
