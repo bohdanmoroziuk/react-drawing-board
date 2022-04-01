@@ -6,9 +6,16 @@ export const saveProject = (
   thumbnail: string,
 ): AppThunk => async (_dispatch, getState) => {
   try {
+    const strokes = getState().strokes;
+
+    if (!strokes.length) {
+      console.log('No image');
+      return;
+    }
+
     const response = await createProject(
       projectName,
-      getState().strokes,
+      strokes,
       thumbnail,
     );
 
