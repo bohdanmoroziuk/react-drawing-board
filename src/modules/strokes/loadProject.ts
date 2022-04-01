@@ -1,6 +1,6 @@
 import { AppThunk } from 'store';
 import { setStrokes } from 'modules/strokes/slice';
-import { getProject } from 'modules/strokes/api';
+import { getProject } from 'api/projects';
 
 export const loadProject = (id: string): AppThunk => async (dispatch) => {
   try {

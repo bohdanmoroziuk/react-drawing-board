@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { hide } from 'modules/modals/slice';
 import { loadProject } from 'modules/strokes/loadProject';
-import { getProjectsList } from 'modules/projectsList/getProjectsList';
+import { loadProjectsList } from 'modules/projectsList/loadProjectsList';
 import { projectsListSelector } from 'modules/projectsList/selectors';
 import useOnMount from 'hooks/useOnMount';
 
@@ -22,7 +22,7 @@ const ProjectsModal: FC = () => {
   };
 
   useOnMount(() => {
-    dispatch(getProjectsList());
+    dispatch(loadProjectsList());
   });
 
   return (

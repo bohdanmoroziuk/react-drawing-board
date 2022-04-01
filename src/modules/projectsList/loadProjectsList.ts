@@ -1,11 +1,11 @@
 import { AppThunk } from 'store';
 import { Project } from 'types';
 import { getProjectsListSuccess, getProjectsListFailure } from 'modules/projectsList/slice';
-import { fetchProjectsList } from 'modules/projectsList/api';
+import { getProjectsList } from 'api/projects';
 
-export const getProjectsList = (): AppThunk => async (dispatch) => {
+export const loadProjectsList = (): AppThunk => async (dispatch) => {
   try {
-    const projectsList: Project[] = await fetchProjectsList();
+    const projectsList: Project[] = await getProjectsList();
 
     dispatch(getProjectsListSuccess(projectsList));
   } catch (error) {

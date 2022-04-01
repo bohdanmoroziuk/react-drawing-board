@@ -1,12 +1,12 @@
 import { AppThunk } from 'store';
-import { newProject } from 'modules/strokes/api';
+import { createProject } from 'api/projects';
 
 export const saveProject = (
   projectName: string,
   thumbnail: string,
 ): AppThunk => async (_dispatch, getState) => {
   try {
-    const response = await newProject(
+    const response = await createProject(
       projectName,
       getState().strokes,
       thumbnail,
