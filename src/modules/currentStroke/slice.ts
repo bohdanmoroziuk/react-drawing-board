@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { CurrentStrokeState, Point, Color } from 'types';
+import { CurrentStrokeState, Point, Color, Width } from 'types';
 import { endStroke } from 'modules/sharedActions';
 
 export const initialState = {
   points: [],
   color: '#000',
+  width: 5,
 } as CurrentStrokeState;
 
 export type BeginStrokeActionPayload = Point;
@@ -13,6 +14,8 @@ export type BeginStrokeActionPayload = Point;
 export type UpdateStrokeActionPayload = Point;
 
 export type SetStrokeColorActionPayload = Color;
+
+export type SetStrokeWidthActionPayload = Width;
 
 export const currentStrokeSlice = createSlice({
   name: 'currentStroke',
@@ -27,6 +30,9 @@ export const currentStrokeSlice = createSlice({
     setStrokeColor: (state, action: PayloadAction<SetStrokeColorActionPayload>) => {
       state.color = action.payload;
     },
+    setStrokeWidth: (state, action: PayloadAction<SetStrokeWidthActionPayload>) => {
+      state.width = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(endStroke, (state) => {
@@ -37,4 +43,4 @@ export const currentStrokeSlice = createSlice({
 
 export default currentStrokeSlice.reducer;
 
-export const { beginStroke, updateStroke, setStrokeColor } = currentStrokeSlice.actions;
+export const { beginStroke, updateStroke, setStrokeColor, setStrokeWidth } = currentStrokeSlice.actions;

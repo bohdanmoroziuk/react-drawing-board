@@ -72,7 +72,7 @@ const App: FC = () => {
     if (!context)  return;
 
     requestAnimationFrame(() => {
-      drawStroke(context, currentStroke.points, currentStroke.color);
+      drawStroke(context, currentStroke.points, currentStroke.color, currentStroke.width);
     });
   }, [currentStroke, getCanvasAndContext]);
 
@@ -87,7 +87,7 @@ const App: FC = () => {
       strokes
         .slice(0, strokes.length - historyIndex)
         .forEach((stroke) => {
-          drawStroke(context, stroke.points, stroke.color)
+          drawStroke(context, stroke.points, stroke.color, stroke.width);
         });
     });
   }, [historyIndex, strokes, getCanvasAndContext]);

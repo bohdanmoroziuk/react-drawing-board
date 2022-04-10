@@ -2,6 +2,8 @@ export type Nullable<T> = T | null;
 
 export type Color = string;
 
+export type Width = number;
+
 export type UndoLimit = number;
 
 export type HistoryLimit = number;
@@ -16,6 +18,7 @@ export type Point = {
 export type Stroke = {
   points: Point[];
   color: Color;
+  width: Width;
 }
 
 export type Project = {

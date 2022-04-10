@@ -1,13 +1,16 @@
-import { Point, Color, Nullable } from 'types';
+import { Point, Color, Nullable, Width } from 'types';
 
 export const drawStroke = (
   context: CanvasRenderingContext2D,
   points: Point[],
   color: Color,
+  width: Width,
 ) => {
   if (!points.length) return;
 
   context.strokeStyle = color;
+  context.lineWidth = width;
+  
   context.beginPath();
   context.moveTo(points[0].x, points[0].y);
 
