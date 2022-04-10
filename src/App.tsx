@@ -16,6 +16,7 @@ import { useCanvas } from 'contexts/canvas';
 import FilePanel from 'components/FilePanel';
 import EditPanel from 'components/EditPanel';
 import ColorPanel from 'components/ColorPanel';
+import BoardPanel from 'components/BoardPanel';
 import ModalLayer from 'components/ModalLayer';
 
 const WIDTH = 800;
@@ -123,6 +124,7 @@ const App: FC = () => {
         <FilePanel />
         <EditPanel />
         <ColorPanel />
+        <BoardPanel />
       </div>
       <ModalLayer />
     </div>

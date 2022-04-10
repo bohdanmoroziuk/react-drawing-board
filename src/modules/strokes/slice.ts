@@ -14,6 +14,9 @@ export const strokesSlice = createSlice({
     setStrokes: (_state, action: PayloadAction<SetStrokesActionPayload>) => {
       return action.payload;
     },
+    resetStrokes: () => {
+      return [];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(endStroke, (state, action) => {
@@ -30,4 +33,4 @@ export const strokesSlice = createSlice({
 
 export default strokesSlice.reducer;
 
-export const { setStrokes } = strokesSlice.actions;
+export const { setStrokes, resetStrokes } = strokesSlice.actions;
