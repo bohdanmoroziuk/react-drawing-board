@@ -15,7 +15,6 @@ body,
 
 .app {
   background-color: #dfdfdf;
-  position: relative;
   display: flex;
   padding: 0.5rem;
 }
@@ -35,9 +34,6 @@ canvas {
 
 .colors-panel {
   width: 352px;
-  position: absolute;
-  bottom: 50px;
-  left: 50px;
 }
 
 .color {

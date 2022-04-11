@@ -29,7 +29,10 @@ const FilePanel: FC = () => {
   };
 
   return (
-    <Panel title="File">
+    <Panel
+      title="File"
+      initialPosition={{ x: 820, y: 310 }}  
+    >
       <div className="field-row">
         <button className="button" onClick={exportToFile}>
           Export

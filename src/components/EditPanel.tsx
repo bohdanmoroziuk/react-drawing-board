@@ -19,7 +19,10 @@ const EditPanel: FC = () => {
   };
 
   return (
-    <Panel title="Edit">
+    <Panel
+      title="Edit"
+      initialPosition={{ x: 820, y: 210 }}  
+    >
       <div className="field-row">
         <button
           className="button undo"

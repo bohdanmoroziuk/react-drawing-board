@@ -22,7 +22,10 @@ const BoardPanel: FC = () => {
   };
 
   return (
-    <Panel title="Board">
+    <Panel
+      title="Board"
+      initialPosition={{ x: 820, y: 5 }}
+    >
       <div className="field-row">
         <button className="button" onClick={handleBoardClear}>
           Clear

@@ -43,7 +43,10 @@ const ColorPanel: FC = () => {
   };
 
   return (
-    <Panel title="Colors">
+    <Panel
+      title="Colors"
+      initialPosition={{ x: 820, y: 100 }}  
+    >
       <div className="colors">
         {COLORS.map((color) => (
           <div
